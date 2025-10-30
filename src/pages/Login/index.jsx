@@ -5,17 +5,17 @@ import { Link, useNavigate } from "react-router-dom";
 const Login = () => {
   let [email, setEmail] = useState("");
   let [password, setPassword] = useState("");
-
-
+  
+  
   let navigate = useNavigate();
   const handleLogin = async (e) => {
     e.preventDefault();
-  
+    
     const obj = {
       email,
       password,
     };
-  
+    
     try {
       const url = "http://localhost:5000/login";
       const response = await axios.post(url, obj);
@@ -23,14 +23,14 @@ const Login = () => {
       console.log("Login Response:", response.data);
   
       if (response.data.status) {
-        // ✅ Save values in localStorage
+        
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("userId", response.data.userId);
   
         console.log("Token:", response.data.token);
         console.log("User ID:", response.data.userId);
   
-        // ✅ Navigate after successful login
+      
         navigate("/dashboard");
       } else {
         alert(response.data.message || "Login failed");
